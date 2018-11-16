@@ -1,0 +1,15 @@
+
+b__*
+*.o
+*.ali
+*.a
+*main
+*.stdout
+*.stderr
+*-loc.xml
+clang_ref_cache.db
+gnatinspect.db
+messages.txt
+*.cswi
+*.cgpr
+*.bexch
