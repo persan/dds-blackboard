@@ -18,7 +18,10 @@ package body Dds.Topic_Blackboard_Generic is
    is
       Ret           : Blackboard_Access := new Blackboard;
       Created_Topic : Boolean := False;
+      L_Reader_QoS  : DDS.DataReaderQoS;
+
    begin
+      Dds.Copy (L_Reader_QoS, Reader_QoS);
       if Publisher.Get_Participant /= Subscriber.Get_Participant then
          raise Program_Error with "Publisher and Subscriber belongs to defferent participants";
       end if;
@@ -28,12 +31,12 @@ package body Dds.Topic_Blackboard_Generic is
          Created_Topic := True;
       end if;
 
-      --        DataReaderQoS.Resource_Limits.Max_Samples_Per_Instance (1);
-      --        DataReaderQoS.History.Depth (1);
-      --        DataReaderQoS.Resource_Limits.Max_Instances := 1;
-      --        DataReaderQoS.History.Kind := DDS.KEEP_LAST_HISTORY_QOS;
+      L_Reader_QoS.Resource_Limits.Max_Samples_Per_Instance := 1;
+      L_Reader_QoS.History.Depth := 1;
+      L_Reader_QoS.Resource_Limits.Max_Instances := 1;
+      L_Reader_QoS.History.Kind := DDS.KEEP_LAST_HISTORY_QOS;
 
-      Ret.Reader := Data_Reader.Ref_Access (Subscriber.Create_DataReader (Ret.Topic.As_TopicDescription, Reader_QoS));
+      Ret.Reader := Data_Reader.Ref_Access (Subscriber.Create_DataReader (Ret.Topic.As_TopicDescription, L_Reader_QoS));
       Ret.Writer := Data_Writer.Ref_Access (Publisher.Create_DataWriter (Ret.Topic, Writer_QoS));
       return Ret;
    exception
@@ -129,26 +132,9 @@ package body Dds.Topic_Blackboard_Generic is
    exception
       when E : others =>
          Finalize (Name);
-         Ada.Exceptions.Reraise_Occurrence (E);
+         raise;
    end Create;
 
-   ------------
-   -- Create --
-   ------------
-
-   function Create
-     (Publisher   : not null Dds.Publisher.Ref_Access;
-      Subscriber  : not null Dds.Subscriber.Ref_Access;
-      Topic_Name  : Standard.String;
-      QoS_Library : Standard.String;
-      QoS_Profile : Standard.String)
-      return Blackboard_Access
-   is
-   begin
-      --  Generated stub: replace with real body!
-      pragma Compile_Time_Warning (Standard.True, "Create unimplemented");
-      return raise Program_Error with "Unimplemented function Create";
-   end Create;
 
    ------------
    -- Create --
@@ -167,22 +153,6 @@ package body Dds.Topic_Blackboard_Generic is
       return raise Program_Error with "Unimplemented function Create";
    end Create;
 
-   ------------
-   -- Create --
-   ------------
-
-   function Create
-     (Publisher   : not null Dds.DomainParticipant.Ref_Access;
-      Topic_Name  : Standard.String;
-      Reader_QoS  : DDS.DataReaderQoS := DDS.Subscriber.DATAREADER_QOS_DEFAULT;
-      Writer_QoS  : DDS.DataWriterQoS := DDS.Publisher.DATAWRITER_QOS_DEFAULT;
-      Topic_QoS   : DDS.TopicQos := DDS.DomainParticipant.TOPIC_QOS_DEFAULT) return Blackboard_Access
-   is
-   begin
-      --  Generated stub: replace with real body!
-      pragma Compile_Time_Warning (Standard.True, "Create unimplemented");
-      return raise Program_Error with "Unimplemented function Create";
-   end Create;
 
    -----------
    -- Write --

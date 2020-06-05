@@ -46,35 +46,12 @@ package Dds.Topic_Blackboard_Generic is
                     Writer_QoS  : DDS.DataWriterQoS := DDS.Publisher.DATAWRITER_QOS_DEFAULT;
                     Topic_QoS   : DDS.TopicQos := DDS.DomainParticipant.TOPIC_QOS_DEFAULT) return Blackboard_Access;
 
-   function Create (Publisher   : not null Dds.Publisher.Ref_Access;
-                    Subscriber  : not null Dds.Subscriber.Ref_Access;
-                    Topic_Name  : Standard.String;
-                    Reader_QoS  : DDS.DataReaderQoS := DDS.Subscriber.DATAREADER_QOS_DEFAULT;
-                    Writer_QoS  : DDS.DataWriterQoS := DDS.Publisher.DATAWRITER_QOS_DEFAULT;
-                    Topic_QoS   : DDS.TopicQos := DDS.DomainParticipant.TOPIC_QOS_DEFAULT)
-                    return Blackboard_Access;
-
-   function Create (Publisher   : not null Dds.Publisher.Ref_Access;
-                    Subscriber  : not null Dds.Subscriber.Ref_Access;
-                    Topic_Name  : Standard.String;
-                    QoS_Library : Standard.String;
-                    QoS_Profile : Standard.String) return Blackboard_Access;
-
-
-
-   function Create (Publisher   : not null Dds.DomainParticipant.Ref_Access;
-                    Topic_Name  : Standard.String;
-                    Reader_QoS  : DDS.DataReaderQoS := DDS.Subscriber.DATAREADER_QOS_DEFAULT;
-                    Writer_QoS  : DDS.DataWriterQoS := DDS.Publisher.DATAWRITER_QOS_DEFAULT;
-                    Topic_QoS   : DDS.TopicQos := DDS.DomainParticipant.TOPIC_QOS_DEFAULT) return Blackboard_Access;
-
    function Create (Publisher   : not null Dds.DomainParticipant.Ref_Access;
                     Topic       : not null DDS.Topic.Ref_Access;
                     Reader_QoS  : DDS.DataReaderQoS := DDS.Subscriber.DATAREADER_QOS_DEFAULT;
                     Writer_QoS  : DDS.DataWriterQoS := DDS.Publisher.DATAWRITER_QOS_DEFAULT;
                     Topic_QoS   : DDS.TopicQos := DDS.DomainParticipant.TOPIC_QOS_DEFAULT) return Blackboard_Access;
 
-   procedure Write (Self : not null access Blackboard; Data : Treats.Data_Type_Access);
    procedure Write (Self : not null access Blackboard; Data : Treats.Data_Type);
    -- Publish data on the global blackboard.
 
